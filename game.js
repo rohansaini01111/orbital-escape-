@@ -1,6 +1,8 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+let angle = 0;
+
 // Full screen canvas
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
