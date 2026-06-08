@@ -49,7 +49,31 @@ function animate() {
   drawPlanet();
   drawOrbit();
 
+  angle += 0.02; // speed control
+
+drawShip();
+
   requestAnimationFrame(animate);
 }
 
 animate();
+let angle = 0;
+
+const ship = {
+  radius: 10,
+  orbitRadius: orbit.radius
+};
+function drawShip() {
+  const x = centerX + ship.orbitRadius * Math.cos(angle);
+  const y = centerY + ship.orbitRadius * Math.sin(angle);
+
+  ctx.beginPath();
+  ctx.arc(x, y, ship.radius, 0, Math.PI * 2);
+  ctx.fillStyle = "#fff";
+
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = "#fff";
+
+  ctx.fill();
+  ctx.shadowBlur = 0;
+}
