@@ -18,7 +18,8 @@ const planet = {
 
 // Orbit
 const orbit = {
-  radius: 150
+  inner: 120,
+  outer: 180
 };
 
 // Draw planet
@@ -35,10 +36,16 @@ function drawPlanet() {
 
 // Draw orbit
 function drawOrbit() {
+  // inner orbit
   ctx.beginPath();
-  ctx.arc(centerX, centerY, orbit.radius, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(255,255,255,0.2)";
-  ctx.lineWidth = 2;
+  ctx.arc(centerX, centerY, orbit.inner, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(255,255,255,0.1)";
+  ctx.stroke();
+
+  // outer orbit
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, orbit.outer, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(255,255,255,0.3)";
   ctx.stroke();
 }
 
@@ -59,10 +66,14 @@ drawShip();
 animate();
 let angle = 0;
 
+let currentOrbit = "outer";
+
 const ship = {
   radius: 10,
-  orbitRadius: orbit.radius
+  orbitRadius: orbit.outer
 };
+
+
 function drawShip() {
   const x = centerX + ship.orbitRadius * Math.cos(angle);
   const y = centerY + ship.orbitRadius * Math.sin(angle);
@@ -77,3 +88,25 @@ function drawShip() {
   ctx.fill();
   ctx.shadowBlur = 0;
 }
+
+window.addEventListener("click", () => {
+  if (currentOrbit === "outer") {
+    currentOrbit = "inner";
+    ship.orbitRadius = orbit.inner;
+  } else {
+    currentOrbit = "outer";
+    ship.orbitRadius = orbit.outer;
+  }
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.code === "Space") {
+    if (currentOrbit === "outer") {
+      currentOrbit = "inner";
+      ship.orbitRadius = orbit.inner;
+    } else {
+      currentOrbit = "outer";
+      ship.orbitRadius = orbit.outer;
+    }
+  }
+});
