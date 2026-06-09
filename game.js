@@ -47,14 +47,18 @@ function drawOrbit() {
   ctx.stroke();
 }
 
-function drawShip() {
-  const x = centerX + ship.orbitRadius * Math.cos(angle);
-  const y = centerY + ship.orbitRadius * Math.sin(angle);
+let shipImg = new Image();
+shipImg.src = "ship.png";
 
-  ctx.beginPath();
-  ctx.arc(x, y, ship.radius, 0, Math.PI * 2);
-  ctx.fillStyle = "#fff";
-  ctx.fill();
+function drawShip() {
+  ctx.save();
+
+  ctx.translate(ship.x, ship.y);
+  ctx.rotate(ship.angle + Math.PI / 2);
+
+  ctx.drawImage(shipImg, -20, -20, 40, 40);
+
+  ctx.restore();
 }
 
 window.addEventListener("click", () => {
