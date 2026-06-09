@@ -75,6 +75,7 @@ function animate() {
 
   angle += 0.02;
   drawShip();
+  drawAsteroids();
 
   requestAnimationFrame(animate);
 }
